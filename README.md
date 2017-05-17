@@ -1,6 +1,8 @@
 ### Setup steps
 ```sh
-apt install nvim
+add-apt-repository ppa:neovim-ppa/unstable
+apt update
+apt install neovim python3-pip
 pip3 install --upgrade neovim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
