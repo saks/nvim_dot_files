@@ -54,6 +54,9 @@ let html_number_lines = 1
 "  UI
 "  ---------------------------------------------------------------------------
 
+" don't show completion preview window
+set completeopt-=preview
+
 set termguicolors " true colors in the terminal
 set title
 set encoding=utf-8
