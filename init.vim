@@ -87,7 +87,8 @@ set backspace=indent,eol,start
 set number
 set numberwidth=5
 set undofile
-set timeoutlen=1000  " Time to wait after ESC (default causes an annoying delay)
+set timeoutlen=100  " Time to wait after ESC (default causes an annoying delay)
+set ttimeoutlen=0
 
 "  ---------------------------------------------------------------------------
 "  Backups
