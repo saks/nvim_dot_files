@@ -88,7 +88,6 @@ set number
 set numberwidth=5
 set undofile
 set timeoutlen=100  " Time to wait after ESC (default causes an annoying delay)
-set ttimeoutlen=0
 
 "  ---------------------------------------------------------------------------
 "  Backups
