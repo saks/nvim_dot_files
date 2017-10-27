@@ -7,6 +7,7 @@ set nocompatible               " be iMproved
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'SirVer/ultisnips'
