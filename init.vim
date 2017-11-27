@@ -346,8 +346,6 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <M-1> <Plug>AirlineSelectTab1
 nmap <M-2> <Plug>AirlineSelectTab2
 nmap <M-3> <Plug>AirlineSelectTab3
@@ -359,8 +357,15 @@ nmap <M-8> <Plug>AirlineSelectTab8
 nmap <M-9> <Plug>AirlineSelectTab9
 nmap <M-,> <Plug>AirlineSelectPrevTab
 nmap <M-.> <Plug>AirlineSelectNextTab
-let g:airline_extensions = ['branch', 'whitespace', 'syntastic', 'tabline']
 
+tnoremap <M-,> <C-\><C-N><Plug>AirlineSelectPrevTab
+tnoremap <M-.> <C-\><C-N><Plug>AirlineSelectNextTab
+
+let g:airline_extensions = ['branch', 'whitespace', 'tabline']
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+if exists('g:loaded_syntastic_plugin')
+	let g:airline#extensions#syntastic#enabled = 1
+endif
 
 " Vim-Racer settings
 " let g:racer_cmd = "/home/saksmlz/.cargo/bin/racer"
