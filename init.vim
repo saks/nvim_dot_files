@@ -446,6 +446,11 @@ if has("gui_running")
   vnoremap <C-c> "+y
 endif
 
+if has('nvim')
+  " EXTERNAL COPY
+  vnoremap <C-c> "+y
+endif
+
 colorscheme railscasts
 
 "Invisible character colors
