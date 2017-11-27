@@ -226,6 +226,7 @@ endif
 " Use jk intead of <esc>
 inoremap jk <esc>
 vnoremap jk <esc>
+tnoremap jk <C-\><C-N>
 " Stop using <esc>
 inoremap <esc> <nop>
 vnoremap <esc> <nop>
