@@ -7,18 +7,25 @@ set nocompatible               " be iMproved
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
+
+" rust
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'make release'}
+Plug 'junegunn/fzf'
+
+" Plug 'roxma/nvim-completion-manager'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'rust' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'cespare/vim-toml', { 'for': 'toml' }
+
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'nginx/nginx', {'rtp': 'contrib/vim/'}
 Plug 'godlygeek/tabular'
-Plug 'kylef/apiblueprint.vim'
 Plug 'saks/gpicker.vim'
 Plug 'saks/vim-snippets'
-Plug 'tomtom/quickfixsigns_vim'
+" Plug 'tomtom/quickfixsigns_vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -26,9 +33,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'scrooloose/syntastic', { 'for': 'ruby' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'rust' }
 call plug#end()
 
 "  ---------------------------------------------------------------------------
@@ -324,6 +328,11 @@ noremap <C-space> :nohl <cr>
 "  Plugins
 "  ---------------------------------------------------------------------------
 
+" Rust
+let g:rustfmt_autosave = 1
+" set completefunc=LanguageClient#complete
+" set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
@@ -367,15 +376,6 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
 	let g:airline#extensions#syntastic#enabled = 1
 endif
-
-" Vim-Racer settings
-" let g:racer_cmd = "/home/saksmlz/.cargo/bin/racer"
-" let $RUST_SRC_PATH="/home/saksmlz/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
-" let g:racer_experimental_completer = 1
-
-" Rust:
-let g:rustfmt_autosave = 1
-" let g:syntastic_rust_checkers = ['clippy']
 
 " Easy commenting
 nnoremap <M-/> :TComment<CR>
@@ -478,7 +478,6 @@ set hidden
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
     \ }
 
 " Automatically start language servers.
