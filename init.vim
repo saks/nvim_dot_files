@@ -15,7 +15,7 @@ Plug 'junegunn/fzf'
 " Plug 'roxma/nvim-completion-manager'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'rust' }
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
