@@ -10,7 +10,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 " rust
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'make release'}
-Plug 'junegunn/fzf'
 
 " Plug 'roxma/nvim-completion-manager'
 
@@ -23,7 +22,11 @@ Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
-Plug 'saks/gpicker.vim'
+if has("macunix")
+  Plug 'junegunn/fzf'
+elseif has("unix")
+  Plug 'saks/gpicker.vim'
+endif
 Plug 'saks/vim-snippets'
 " Plug 'tomtom/quickfixsigns_vim'
 Plug 'tomtom/tcomment_vim'
@@ -252,62 +255,52 @@ exe 'inoremap <script> <S-Insert>' paste#paste_cmd['i']
 
 
 " Text indentation with Alt+Letf/Right and so on
-nnoremap <M-Left> <<
-nnoremap <M-Right> >>
-vmap <M-Left> <gv
-vmap <M-Right> >gv
-nnoremap <M-h> <<
-nnoremap <M-l> >>
-vmap <M-h> <gv
-vmap <M-l> >gv
+if has("macunix")
+  " FIXME
+  " nnoremap <M-Left> <<
+  " nnoremap <M-Right> >>
+  " vmap <M-Left> <gv
+  " vmap <M-Right> >gv
+  nnoremap ˙ <<
+  nnoremap ¬ >>
+  vmap ˙ <gv
+  vmap ¬ >gv
 
-" Text movimg with plugin unimpaired.vim
-" Bubble single lines
-nmap <M-k> [e
-nmap <M-j> ]e
-nmap <M-Up> [e
-nmap <M-Down> ]e
+  " Text movimg with plugin unimpaired.vim
+  " Bubble single lines
+  nmap ˚ [e
+  nmap ∆ ]e
+  " nmap <M-Up> [e
+  " nmap <M-Down> ]e
 
-" Bubble multiple lines
-vmap <M-k> [egv
-vmap <M-j> ]egv
-vmap <M-Up> [egv
-vmap <M-Down> ]egv
+  " Bubble multiple lines
+  vmap ˚ [egv
+  vmap ∆ ]egv
+  " vmap <M-Up> [egv
+  " vmap <M-Down> ]egv
+elseif has("unix")
+  nnoremap <M-Left> <<
+  nnoremap <M-Right> >>
+  vmap <M-Left> <gv
+  vmap <M-Right> >gv
+  nnoremap <M-h> <<
+  nnoremap <M-l> >>
+  vmap <M-h> <gv
+  vmap <M-l> >gv
 
+  " Text movimg with plugin unimpaired.vim
+  " Bubble single lines
+  nmap <M-k> [e
+  nmap <M-j> ]e
+  nmap <M-Up> [e
+  nmap <M-Down> ]e
 
-" Switch between buffers
-" map <M-1> :b1<CR>
-" map <M-2> :b2<CR>
-" map <M-3> :b3<CR>
-" map <M-4> :b4<CR>
-" map <M-5> :b5<CR>
-" map <M-6> :b6<CR>
-" map <M-7> :b7<CR>
-" map <M-8> :b8<CR>
-" map <M-9> :b9<CR>
-
-" Switch between tabs
-" noremap <M-1> 1gt
-" noremap <M-2> 2gt
-" noremap <M-3> 3gt
-" noremap <M-4> 4gt
-" noremap <M-5> 5gt
-" noremap <M-6> 6gt
-" noremap <M-7> 7gt
-" noremap <M-8> 8gt
-" noremap <M-9> 9gt
-
-" Next/Previous tab
-" noremap <M-.> :tabnext<CR>
-" noremap <M-,> :tabprevious<CR>
-
-" Next/Previous buffer
-" noremap <M-.> :bn<CR>
-" noremap <M-,> :bp<CR>
-" noremap <M-.> <Plug>AirlineSelectNextTab
-" noremap <M-,> <Plug>AirlineSelectPrevTab
-
-
+  " Bubble multiple lines
+  vmap <M-k> [egv
+  vmap <M-j> ]egv
+  vmap <M-Up> [egv
+  vmap <M-Down> ]egv
+endif
 
 " Clear highlighting
 noremap <C-space> :nohl <cr>
@@ -336,13 +329,19 @@ let g:rustfmt_autosave = 1
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
-" GPicker settings
-" let g:gpicker_open_file_in_tabs = 1
-nnoremap <M-o> :GPickFile<CR>
-vnoremap <M-o> :GPickFile<CR>
+if has("macunix")
+  let g:fzf_layout = { 'up': '~40%' }
+  nnoremap ø :FZF<CR>
+  vnoremap ø :FZF<CR>
+elseif has("unix")
+  " GPicker settings
+  " let g:gpicker_open_file_in_tabs = 1
+  nnoremap <M-o> :GPickFile<CR>
+  vnoremap <M-o> :GPickFile<CR>
 
-nnoremap <S-M-o> :GPickFileDefault<CR>
-vnoremap <S-M-o> :GPickFileDefault<CR>
+  nnoremap <S-M-o> :GPickFileDefault<CR>
+  vnoremap <S-M-o> :GPickFileDefault<CR>
+endif
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
@@ -356,20 +355,38 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
-nmap <M-1> <Plug>AirlineSelectTab1
-nmap <M-2> <Plug>AirlineSelectTab2
-nmap <M-3> <Plug>AirlineSelectTab3
-nmap <M-4> <Plug>AirlineSelectTab4
-nmap <M-5> <Plug>AirlineSelectTab5
-nmap <M-6> <Plug>AirlineSelectTab6
-nmap <M-7> <Plug>AirlineSelectTab7
-nmap <M-8> <Plug>AirlineSelectTab8
-nmap <M-9> <Plug>AirlineSelectTab9
-nmap <M-,> <Plug>AirlineSelectPrevTab
-nmap <M-.> <Plug>AirlineSelectNextTab
 
-tnoremap <M-,> <C-\><C-N><Plug>AirlineSelectPrevTab
-tnoremap <M-.> <C-\><C-N><Plug>AirlineSelectNextTab
+if has("macunix")
+  nmap ≤ <Plug>AirlineSelectPrevTab
+  nmap ≥ <Plug>AirlineSelectNextTab
+  tnoremap ≤ <C-\><C-N><Plug>AirlineSelectPrevTab
+  tnoremap ≤ <C-\><C-N><Plug>AirlineSelectNextTab
+
+  nmap ¡ <Plug>AirlineSelectTab1
+  nmap ™ <Plug>AirlineSelectTab2
+  nmap £ <Plug>AirlineSelectTab3
+  nmap ¢ <Plug>AirlineSelectTab4
+  nmap ∞ <Plug>AirlineSelectTab5
+  nmap § <Plug>AirlineSelectTab6
+  nmap ¶ <Plug>AirlineSelectTab7
+  nmap • <Plug>AirlineSelectTab8
+  nmap ª <Plug>AirlineSelectTab9
+elseif has("unix")
+  nmap <M-,> <Plug>AirlineSelectPrevTab
+  nmap <M-.> <Plug>AirlineSelectNextTab
+  tnoremap <M-,> <C-\><C-N><Plug>AirlineSelectPrevTab
+  tnoremap <M-.> <C-\><C-N><Plug>AirlineSelectNextTab
+
+  nmap <M-1> <Plug>AirlineSelectTab1
+  nmap <M-2> <Plug>AirlineSelectTab2
+  nmap <M-3> <Plug>AirlineSelectTab3
+  nmap <M-4> <Plug>AirlineSelectTab4
+  nmap <M-5> <Plug>AirlineSelectTab5
+  nmap <M-6> <Plug>AirlineSelectTab6
+  nmap <M-7> <Plug>AirlineSelectTab7
+  nmap <M-8> <Plug>AirlineSelectTab8
+  nmap <M-9> <Plug>AirlineSelectTab9
+endif
 
 let g:airline_extensions = ['branch', 'whitespace', 'tabline']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -378,8 +395,13 @@ if exists('g:loaded_syntastic_plugin')
 endif
 
 " Easy commenting
-nnoremap <M-/> :TComment<CR>
-vnoremap <M-/> :TComment<CR>
+if has("macunix")
+  nnoremap ÷ :TComment<CR>
+  vnoremap ÷ :TComment<CR>
+elseif has("unix")
+  nnoremap <M-/> :TComment<CR>
+  vnoremap <M-/> :TComment<CR>
+endif
 
 " unite
 " Автоматический insert mode
@@ -437,8 +459,6 @@ if has("gui_running")
   set mouse=v
   set mousehide  " Hide mouse after chars typed
   set mouse=a  " Mouse in all modes
-  " set guifont=Monaco 10
-  " set guifont=Monaco\ For\ Powerline\ 13
   set guifont=Hack\ 13
   set linespace=1
 
@@ -447,7 +467,7 @@ if has("gui_running")
   vnoremap <C-c> "+y
 endif
 
-if has('nvim')
+if has("nvim")
   " EXTERNAL COPY
   vnoremap <C-c> "+y
 endif
