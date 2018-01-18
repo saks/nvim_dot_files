@@ -9,26 +9,27 @@ set nocompatible               " be iMproved
 call plug#begin('~/.config/nvim/plugged')
 
 " rust
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'make release'}
-
-" Plug 'roxma/nvim-completion-manager'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'rust' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'cespare/vim-toml'
 
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
-if has("macunix")
+if has('macunix')
   Plug 'junegunn/fzf'
-elseif has("unix")
+elseif has('unix')
   Plug 'saks/gpicker.vim'
 endif
 Plug 'saks/vim-snippets'
-" Plug 'tomtom/quickfixsigns_vim'
+Plug 'tomtom/quickfixsigns_vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -36,6 +37,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'linkedin/dustjs'
+
 call plug#end()
 
 "  ---------------------------------------------------------------------------
@@ -255,7 +258,7 @@ exe 'inoremap <script> <S-Insert>' paste#paste_cmd['i']
 
 
 " Text indentation with Alt+Letf/Right and so on
-if has("macunix")
+if has('macunix')
   " FIXME
   " nnoremap <M-Left> <<
   " nnoremap <M-Right> >>
@@ -278,7 +281,7 @@ if has("macunix")
   vmap ∆ ]egv
   " vmap <M-Up> [egv
   " vmap <M-Down> ]egv
-elseif has("unix")
+elseif has('unix')
   nnoremap <M-Left> <<
   nnoremap <M-Right> >>
   vmap <M-Left> <gv
@@ -329,11 +332,11 @@ let g:rustfmt_autosave = 1
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
-if has("macunix")
+if has('macunix')
   let g:fzf_layout = { 'up': '~40%' }
   nnoremap ø :FZF<CR>
   vnoremap ø :FZF<CR>
-elseif has("unix")
+elseif has('unix')
   " GPicker settings
   " let g:gpicker_open_file_in_tabs = 1
   nnoremap <M-o> :GPickFile<CR>
@@ -356,7 +359,7 @@ let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
 
-if has("macunix")
+if has('macunix')
   nmap ≤ <Plug>AirlineSelectPrevTab
   nmap ≥ <Plug>AirlineSelectNextTab
   tnoremap ≤ <C-\><C-N><Plug>AirlineSelectPrevTab
@@ -371,7 +374,7 @@ if has("macunix")
   nmap ¶ <Plug>AirlineSelectTab7
   nmap • <Plug>AirlineSelectTab8
   nmap ª <Plug>AirlineSelectTab9
-elseif has("unix")
+elseif has('unix')
   nmap <M-,> <Plug>AirlineSelectPrevTab
   nmap <M-.> <Plug>AirlineSelectNextTab
   tnoremap <M-,> <C-\><C-N><Plug>AirlineSelectPrevTab
@@ -395,10 +398,10 @@ if exists('g:loaded_syntastic_plugin')
 endif
 
 " Easy commenting
-if has("macunix")
+if has('macunix')
   nnoremap ÷ :TComment<CR>
   vnoremap ÷ :TComment<CR>
-elseif has("unix")
+elseif has('unix')
   nnoremap <M-/> :TComment<CR>
   vnoremap <M-/> :TComment<CR>
 endif
