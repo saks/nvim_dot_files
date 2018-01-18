@@ -501,7 +501,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'nightly-2018-01-14', 'rls'],
     \ }
 
 " Automatically start language servers.
