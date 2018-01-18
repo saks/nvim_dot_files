@@ -29,7 +29,8 @@ elseif has('unix')
   Plug 'saks/gpicker.vim'
 endif
 Plug 'saks/vim-snippets'
-Plug 'tomtom/quickfixsigns_vim'
+" Plug 'tomtom/quickfixsigns_vim'
+Plug 'mhinz/vim-signify'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
