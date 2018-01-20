@@ -190,6 +190,7 @@ if has("autocmd")
     au FileType lua setlocal tw=79 cc=80
     au FileType python setlocal tw=79 cc=80
     au FileType rust setlocal tw=79 cc=80
+    au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 
     " Go
     au FileType go nmap <Leader>dt <Plug>(go-def-tab)
