@@ -8,14 +8,13 @@ set nocompatible               " be iMproved
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
 
-" rust
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'for': 'rust' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
@@ -23,13 +22,12 @@ Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
+Plug 'junegunn/fzf' " used for completion for LanguageClient
 if has('macunix')
-  Plug 'junegunn/fzf'
 elseif has('unix')
   Plug 'saks/gpicker.vim'
 endif
 Plug 'saks/vim-snippets'
-" Plug 'tomtom/quickfixsigns_vim'
 Plug 'mhinz/vim-signify'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
@@ -39,6 +37,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'linkedin/dustjs'
+Plug 'jimmyhchan/dustjs.vim'
 
 call plug#end()
 
@@ -328,8 +327,7 @@ noremap <C-space> :nohl <cr>
 
 " Rust
 let g:rustfmt_autosave = 1
-" set completefunc=LanguageClient#complete
-" set formatexpr=LanguageClient_textDocument_rangeFormatting()
+let g:rustfmt_options = "--config-path=/home/saksmlz/.rustfmtrc"
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -497,12 +495,8 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  Misc
 "  ---------------------------------------------------------------------------
 
-" Lang server
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly-2018-01-14', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
 
 " Automatically start language servers.
