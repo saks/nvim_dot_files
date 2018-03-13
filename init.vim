@@ -38,6 +38,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'linkedin/dustjs'
 Plug 'jimmyhchan/dustjs.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
