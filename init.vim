@@ -498,7 +498,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  ---------------------------------------------------------------------------
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rustup', 'run', 'nightly-2018-01-21', 'rls'],
     \ }
 
 " Automatically start language servers.
