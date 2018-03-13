@@ -7,6 +7,7 @@ set nocompatible               " be iMproved
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
+Plug 'jimmyhchan/dustjs.vim'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -341,8 +342,10 @@ if has('macunix')
 elseif has('unix')
   " GPicker settings
   " let g:gpicker_open_file_in_tabs = 1
-  nnoremap <M-o> :GPickFile<CR>
-  vnoremap <M-o> :GPickFile<CR>
+  nnoremap <silent> <M-o> :GPickFile<CR>
+  vnoremap <silent> <M-o> :GPickFile<CR>
+  nnoremap <silent> <M-p> :GPickBuffer<CR>
+  vnoremap <silent> <M-p> :GPickBuffer<CR>
 
   nnoremap <S-M-o> :GPickFileDefault<CR>
   vnoremap <S-M-o> :GPickFileDefault<CR>
