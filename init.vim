@@ -37,10 +37,17 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'linkedin/dustjs'
-Plug 'jimmyhchan/dustjs.vim'
+" Plug 'linkedin/dustjs'
+" Plug 'jimmyhchan/dustjs.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'yosiat/oceanic-next-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'css', 'json']
+  \ }
 
 call plug#end()
 
@@ -167,6 +174,7 @@ if has("autocmd")
     filetype on
 
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
+    au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
 
     " remember folding
     " BufWinLeave failed to update view sometimes
@@ -400,6 +408,7 @@ let g:airline_extensions = ['branch', 'whitespace', 'tabline']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
 	let g:airline#extensions#syntastic#enabled = 1
+  let g:syntastic_javascript_checkers = ['eslint']
 endif
 
 " Easy commenting
@@ -510,3 +519,42 @@ let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" Prettier
+let g:prettier#autoformat = 0
+
+" max line length that prettier will wrap on
+" Prettier default: 80
+let g:prettier#config#print_width = 100
+
+" number of spaces per indentation level
+" Prettier default: 4
+let g:prettier#config#tab_width = 4
+
+" use tabs over spaces
+" Prettier default: false
+let g:prettier#config#use_tabs = 'false'
+
+" print semicolons
+" Prettier default: true
+let g:prettier#config#semi = 'true'
+
+" single quotes over double quotes
+" Prettier default: false
+let g:prettier#config#single_quote = 'true'
+
+" print spaces between brackets
+" Prettier default: true
+let g:prettier#config#bracket_spacing = 'true'
+
+" avoid|always
+" Prettier default: avoid
+let g:prettier#config#arrow_parens = 'avoid'
+
+" none|es5|all
+" Prettier default: none
+let g:prettier#config#trailing_comma = 'es5'
+
+" flow|babylon|typescript|css|less|scss|json|graphql|markdown
+" Prettier default: babylon
+let g:prettier#config#parser = 'flow'
