@@ -47,6 +47,8 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'css', 'json']
   \ }
 
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
+
 call plug#end()
 
 "  ---------------------------------------------------------------------------
@@ -201,7 +203,7 @@ if has("autocmd")
     au FileType html,css,ruby,javascript setlocal ts=2 sts=2 sw=2 expandtab
     au FileType c setlocal ts=4 sts=4 sw=4 expandtab
     au FileType lua setlocal tw=79 cc=80
-    au FileType python setlocal tw=79 cc=80
+    au FileType python setlocal ts=4 sts=4 sw=4 tw=79 cc=80 expandtab
     au FileType rust setlocal tw=99 cc=100
     au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 
@@ -440,7 +442,7 @@ let g:UltiSnipsEditSplit="vertical"
 " Turn off documentation in python_mode
 let g:pymode_doc = 0
 
-let g:pymode_options_max_line_length = 99
+let g:pymode_options_max_line_length = 80
 
 let g:pymode_rope = 0
 
@@ -448,6 +450,7 @@ let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 
 let g:pymode_folding = 0
+let g:pymode_python = 'python3'
 
 " Syntastic settings:
 let g:syntastic_check_on_open = 1
