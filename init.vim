@@ -23,9 +23,8 @@ Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf' " used for completion for LanguageClient
-if has('macunix')
-elseif has('unix')
-  Plug 'saks/gpicker.vim'
+if !has('macunix') && has('unix')
+  Plug 'alk/gpicker', { 'path': 'gpicker.vim' }
 endif
 Plug 'saks/vim-snippets'
 Plug 'mhinz/vim-signify'
