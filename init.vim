@@ -7,7 +7,6 @@ set nocompatible               " be iMproved
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
-Plug 'jimmyhchan/dustjs.vim'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -37,8 +36,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'linkedin/dustjs'
-" Plug 'jimmyhchan/dustjs.vim'
+Plug 'jimmyhchan/dustjs.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'yosiat/oceanic-next-vim'
