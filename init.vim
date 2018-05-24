@@ -207,8 +207,9 @@ if has("autocmd")
     au BufRead,BufNewFile {Thorfile,Berksfile} set ft=ruby
 
     " Customisations based on house-style (arbitrary)
-    au FileType html,css,ruby,javascript setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType html,css,ruby setlocal ts=2 sts=2 sw=2 expandtab
     au FileType c setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
     au FileType lua setlocal tw=79 cc=80
     au FileType python setlocal ts=4 sts=4 sw=4 tw=79 cc=80 expandtab
     au FileType rust setlocal tw=99 cc=100
