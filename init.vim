@@ -168,6 +168,13 @@ function! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 
+function! <SID>CopyFileNameIntoClipboard()
+  let @+ = expand("%")
+  echo "copied!"
+endfunction
+
+noremap cp :call <SID>CopyFileNameIntoClipboard()<CR>
+
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
   augroup saksmlz_autocommands
