@@ -410,7 +410,6 @@ let g:airline_extensions = ['branch', 'whitespace', 'tabline']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
 	let g:airline#extensions#syntastic#enabled = 1
-  let g:syntastic_javascript_checkers = ['eslint']
 endif
 
 " Easy commenting
