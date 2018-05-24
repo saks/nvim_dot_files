@@ -175,6 +175,7 @@ if has("autocmd")
 
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
+    autocmd BufWritePre *.rs silent! call rustfmt#Format()
 
     " remember folding
     " BufWinLeave failed to update view sometimes
@@ -339,6 +340,7 @@ noremap <C-space> :nohl <cr>
 " Rust
 let g:rustfmt_autosave = 1
 let g:rustfmt_options = "--config-path=/home/saksmlz/.rustfmtrc"
+" let g:rustfmt_command = "cargo fmt"
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -510,7 +512,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  ---------------------------------------------------------------------------
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly-2018-01-21', 'rls'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ }
 
 " Automatically start language servers.
