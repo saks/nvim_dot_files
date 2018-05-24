@@ -526,15 +526,17 @@ nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
 nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
-" Prettier
+" Prettier config:
+let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
+let g:prettier#quickfix_enabled = 1
 
 " max line length that prettier will wrap on
 " Prettier default: 80
 let g:prettier#config#print_width = 100
 
 " number of spaces per indentation level
-" Prettier default: 4
+" Prettier default: 2
 let g:prettier#config#tab_width = 4
 
 " use tabs over spaces
