@@ -172,7 +172,7 @@ if has("autocmd")
 
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
-    autocmd BufWritePre *.rs silent! call rustfmt#Format()
+    autocmd BufWritePre *.rs silent! call LanguageClient_runSync('LanguageClient#textDocument_formatting', {})
 
     " remember folding
     " BufWinLeave failed to update view sometimes
@@ -197,7 +197,7 @@ if has("autocmd")
     au FileType c setlocal ts=4 sts=4 sw=4 expandtab
     au FileType lua setlocal tw=79 cc=80
     au FileType python setlocal tw=79 cc=80
-    au FileType rust setlocal tw=79 cc=80
+    au FileType rust setlocal tw=99 cc=100
     au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 
     " Go
@@ -220,12 +220,6 @@ if has("autocmd")
 
     " Treat .thor files as Ruby
     " au BufNewFile,BufRead *.thor setfiletype ruby
-
-    " Rust
-    au FileType rust nmap gd <Plug>(rust-def)
-    au FileType rust nmap gs <Plug>(rust-def-split)
-    au FileType rust nmap gx <Plug>(rust-def-vertical)
-    au FileType rust nmap <leader>gd <Plug>(rust-doc)
   augroup END
 
 endif
@@ -333,11 +327,6 @@ noremap <C-space> :nohl <cr>
 "  ---------------------------------------------------------------------------
 "  Plugins
 "  ---------------------------------------------------------------------------
-
-" Rust
-let g:rustfmt_autosave = 1
-let g:rustfmt_options = "--config-path=/home/saksmlz/.rustfmtrc"
-" let g:rustfmt_command = "cargo fmt"
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -508,6 +497,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  Misc
 "  ---------------------------------------------------------------------------
 
+" Language client:
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ }
@@ -517,6 +507,8 @@ let g:LanguageClient_autoStart = 1
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Prettier
