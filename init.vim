@@ -89,6 +89,10 @@ set wildmenu
 set wildmode=list:longest
 set splitright
 
+" Customisations for preview window
+set splitbelow " show preview at the bottom of the screen
+set previewheight=5 " 5 lines of preview window
+
 " yank to system clipboard
 set clipboard+=unnamedplus
 
