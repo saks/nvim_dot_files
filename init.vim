@@ -47,7 +47,8 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'css', 'json']
   \ }
 
-Plug 'python-mode/python-mode', { 'branch': 'develop' }
+" Plug 'python-mode/python-mode', { 'branch': 'develop' }
+" Plug 'vim-syntastic/syntastic', { 'for': 'python' }
 
 call plug#end()
 
@@ -186,7 +187,7 @@ if has("autocmd")
 
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
-    autocmd BufWritePre *.rs silent! call LanguageClient_runSync('LanguageClient#textDocument_formatting', {})
+    au BufWritePre *.rs,*.py silent! call LanguageClient_runSync('LanguageClient#textDocument_formatting', {})
 
     " remember folding
     " BufWinLeave failed to update view sometimes
@@ -515,6 +516,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 " Language client:
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
     \ }
 
 " Automatically start language servers.
