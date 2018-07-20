@@ -22,7 +22,8 @@ Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
-Plug 'junegunn/fzf' " used for completion for LanguageClient
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " used for completion for LanguageClient
+Plug 'junegunn/fzf.vim'
 if has('macunix')
 elseif has('unix')
   Plug 'saks/gpicker.vim'
@@ -175,6 +176,25 @@ function! <SID>CopyFileNameIntoClipboard()
 endfunction
 
 noremap cp :call <SID>CopyFileNameIntoClipboard()<CR>
+
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+" Grep word under cursor:
+command! -bang -nargs=* RgCword
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.expand("<cword>").'', 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Use like:
+" :Rg search-term
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -358,6 +378,9 @@ elseif has('unix')
   vnoremap <silent> <M-o> :GPickFile<CR>
   nnoremap <silent> <M-p> :GPickBuffer<CR>
   vnoremap <silent> <M-p> :GPickBuffer<CR>
+
+  nnoremap <silent> <M-r> :RgCword<CR>
+  vnoremap <silent> <M-r> :RgCword<CR>
 
   nnoremap <S-M-o> :GPickFileDefault<CR>
   vnoremap <S-M-o> :GPickFileDefault<CR>
