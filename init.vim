@@ -566,6 +566,7 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
+    \ 'ruby': ['solargraph', 'stdio'],
     \ }
 
 " Automatically start language servers.
