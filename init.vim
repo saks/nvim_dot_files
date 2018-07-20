@@ -182,7 +182,7 @@ noremap cp :call <SID>CopyFileNameIntoClipboard()<CR>
 " Grep word under cursor:
 command! -bang -nargs=* RgCword
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --glob "!.git/*" --smart-case '.expand("<cword>").'', 1,
+  \   'rg --column --max-count=1 --line-number --no-heading --color=always '.expand("<cword>").'', 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -191,7 +191,7 @@ command! -bang -nargs=* RgCword
 " :Rg search-term
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --glob "!.git/*" --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --max-count=1 --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
