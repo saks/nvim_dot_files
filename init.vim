@@ -205,6 +205,7 @@ if has("autocmd")
     " Enable file type detection
     filetype on
 
+    au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
     au BufWritePre *.rs,*.py silent! call LanguageClient_runSync('LanguageClient#textDocument_formatting', {})
