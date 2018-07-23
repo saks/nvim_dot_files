@@ -404,6 +404,9 @@ if has('macunix')
   let g:fzf_layout = { 'up': '~40%' }
   nnoremap ø :FZF<CR>
   vnoremap ø :FZF<CR>
+
+  nnoremap <silent> ® :RgCword<CR>
+  vnoremap <silent> ® :RgCword<CR>
 elseif has('unix')
   " GPicker settings
   " let g:gpicker_open_file_in_tabs = 1
