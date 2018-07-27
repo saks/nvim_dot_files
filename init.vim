@@ -187,6 +187,15 @@ command! -bang -nargs=* RgCword
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+" Grep word under cursor:
+command! -bang -nargs=* RgaCword
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.expand("<cword>").'', 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 " Use like:
 " :Rg search-term
 command! -bang -nargs=* Rg
@@ -401,12 +410,15 @@ noremap <C-space> :nohl <cr>
 let g:deoplete#enable_at_startup = 1
 
 if has('macunix')
-  let g:fzf_layout = { 'up': '~40%' }
+  let g:fzf_layout = { 'down': '~40%' }
   nnoremap ø :FZF<CR>
   vnoremap ø :FZF<CR>
 
   nnoremap <silent> ® :RgCword<CR>
   vnoremap <silent> ® :RgCword<CR>
+
+  nnoremap <silent> ‰ :RgaCword<CR>
+  vnoremap <silent> ‰ :RgaCword<CR>
 elseif has('unix')
   " GPicker settings
   " let g:gpicker_open_file_in_tabs = 1
@@ -414,6 +426,9 @@ elseif has('unix')
   vnoremap <silent> <M-o> :GPickFile<CR>
   nnoremap <silent> <M-p> :GPickBuffer<CR>
   vnoremap <silent> <M-p> :GPickBuffer<CR>
+
+  nnoremap <silent> <S-M-r> :RgaCword<CR>
+  vnoremap <silent> <S-M-r> :RgaCword<CR>
 
   nnoremap <silent> <M-r> :RgCword<CR>
   vnoremap <silent> <M-r> :RgCword<CR>
