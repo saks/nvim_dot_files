@@ -587,11 +587,15 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  Misc
 "  ---------------------------------------------------------------------------
 
+let g:javascript_plugin_flow = 1
+
 " Language client:
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
+    \ 'javascript': ['flow-language-server', '--stdio'],
+    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
 
 " Automatically start language servers.
