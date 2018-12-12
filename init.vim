@@ -589,6 +589,8 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 "  Misc
 "  ---------------------------------------------------------------------------
 
+let g:javascript_plugin_flow = 1
+
 " Language client:
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
