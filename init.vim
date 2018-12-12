@@ -17,7 +17,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
@@ -405,6 +405,8 @@ noremap <C-space> :nohl <cr>
 "  ---------------------------------------------------------------------------
 "  Plugins
 "  ---------------------------------------------------------------------------
+let g:javascript_plugin_flow = 1
+
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -482,7 +484,7 @@ elseif has('unix')
   nmap <M-9> <Plug>AirlineSelectTab9
 endif
 
-let g:airline_extensions = ['branch', 'whitespace', 'tabline']
+let g:airline_extensions = ['branch', 'whitespace', 'tabline', 'languageclient']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
 	let g:airline#extensions#syntastic#enabled = 1
@@ -589,9 +591,11 @@ noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
 
 " Language client:
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
+    \ 'javascript.jsx': ['flow', 'lsp', '--from', './node_modules/.bin'],
+    \ 'javascript': ['flow', 'lsp', '--from', './node_modules/.bin'],
     \ }
 
 " Automatically start language servers.
