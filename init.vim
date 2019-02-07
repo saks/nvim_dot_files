@@ -18,7 +18,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
-Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
@@ -28,7 +27,12 @@ if has('macunix')
 elseif has('unix')
   Plug 'saks/gpicker.vim'
 endif
-Plug 'saks/vim-snippets'
+" Plug 'SirVer/ultisnips'
+" Plug 'saks/vim-snippets'
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
 Plug 'mhinz/vim-signify'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
@@ -514,6 +518,32 @@ endif
 
 " Красивые стрелочки
 " let g:unite_candidate_icon="▷"
+
+
+
+" NeoSnippet plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+\ pumvisible() ? "\<C-n>" :
+\ neosnippet#expandable_or_jumpable() ?
+\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
