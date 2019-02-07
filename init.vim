@@ -626,8 +626,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'javascript.jsx': ['flow', 'lsp', '--from', './node_modules/.bin'],
-    \ 'javascript': ['flow', 'lsp', '--from', './node_modules/.bin'],
+    \ 'javascript.jsx': ['yarn', 'run', 'flow', 'lsp', '--from', './node_modules/.bin'],
     \ }
 
 " Automatically start language servers.
