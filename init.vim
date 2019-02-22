@@ -119,7 +119,7 @@ set backspace=indent,eol,start
 set number
 set numberwidth=5
 set undofile
-set timeoutlen=100  " Time to wait after ESC (default causes an annoying delay)
+set timeoutlen=1000  " Time to wait after ESC (default causes an annoying delay)
 
 "  ---------------------------------------------------------------------------
 "  Backups
@@ -254,8 +254,8 @@ if has("autocmd")
 
     au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
-    au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
-    au BufWritePre *.rs,*.py silent! call LanguageClient_runSync('LanguageClient#textDocument_formatting', {})
+    au BufWritePre *.js,*.jsx,*.css,*.json Prettier
+    au BufWritePre *.rs,*.py silent! call LanguageClient#textDocument_formatting_sync()
 
     " remember folding
     " BufWinLeave failed to update view sometimes
@@ -643,7 +643,6 @@ nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Prettier config:
-let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
 let g:prettier#quickfix_enabled = 1
 
