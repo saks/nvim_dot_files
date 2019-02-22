@@ -154,6 +154,7 @@ set wildignore+=*.bak,*~,*.tmp,*.backup,*swp,*.o,*.obj,.git,*.rbc,*.png,*.xpi,*.
 set smartcase
 set gdefault
 set incsearch
+set inccommand=nosplit
 set showmatch
 set hlsearch
 set mat=5  " Bracket blinking.
