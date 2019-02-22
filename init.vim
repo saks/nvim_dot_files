@@ -16,6 +16,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
+Plug 'machakann/vim-highlightedyank'
 
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
 Plug 'bling/vim-airline'
