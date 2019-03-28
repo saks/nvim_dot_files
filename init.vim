@@ -414,7 +414,6 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
 endif
 
-let g:ctrlp_map = '<M-o>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -427,9 +426,7 @@ let g:ctrlp_custom_ignore = {
 let g:deoplete#enable_at_startup = 1
 
 if has('macunix')
-  let g:fzf_layout = { 'down': '~40%' }
-  " nnoremap ø :FZF<CR>
-  " vnoremap ø :FZF<CR>
+  let g:ctrlp_map = 'ø'
 
   nnoremap <silent> ® :RgCword<CR>
   vnoremap <silent> ® :RgCword<CR>
@@ -437,6 +434,8 @@ if has('macunix')
   nnoremap <silent> ‰ :RgaCword<CR>
   vnoremap <silent> ‰ :RgaCword<CR>
 elseif has('unix')
+  let g:ctrlp_map = '<M-o>'
+
   nnoremap <silent> <S-M-r> :RgaCword<CR>
   vnoremap <silent> <S-M-r> :RgaCword<CR>
 
