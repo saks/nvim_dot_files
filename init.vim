@@ -16,6 +16,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'machakann/vim-highlightedyank'
 
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
@@ -24,12 +25,6 @@ Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " used for completion for LanguageClient
 Plug 'junegunn/fzf.vim'
-if has('macunix')
-elseif has('unix')
-  Plug 'saks/gpicker.vim'
-endif
-" Plug 'SirVer/ultisnips'
-" Plug 'saks/vim-snippets'
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -414,13 +409,27 @@ noremap <C-space> :nohl <cr>
 let g:javascript_plugin_flow = 1
 
 
+" CtrlP settings:
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
+endif
+
+let g:ctrlp_map = '<M-o>'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
 if has('macunix')
   let g:fzf_layout = { 'down': '~40%' }
-  nnoremap ø :FZF<CR>
-  vnoremap ø :FZF<CR>
+  " nnoremap ø :FZF<CR>
+  " vnoremap ø :FZF<CR>
 
   nnoremap <silent> ® :RgCword<CR>
   vnoremap <silent> ® :RgCword<CR>
@@ -428,21 +437,11 @@ if has('macunix')
   nnoremap <silent> ‰ :RgaCword<CR>
   vnoremap <silent> ‰ :RgaCword<CR>
 elseif has('unix')
-  " GPicker settings
-  " let g:gpicker_open_file_in_tabs = 1
-  nnoremap <silent> <M-o> :GPickFile<CR>
-  vnoremap <silent> <M-o> :GPickFile<CR>
-  nnoremap <silent> <M-p> :GPickBuffer<CR>
-  vnoremap <silent> <M-p> :GPickBuffer<CR>
-
   nnoremap <silent> <S-M-r> :RgaCword<CR>
   vnoremap <silent> <S-M-r> :RgaCword<CR>
 
   nnoremap <silent> <M-r> :RgCword<CR>
   vnoremap <silent> <M-r> :RgCword<CR>
-
-  nnoremap <S-M-o> :GPickFileDefault<CR>
-  vnoremap <S-M-o> :GPickFileDefault<CR>
 endif
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
