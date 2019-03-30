@@ -632,6 +632,9 @@ let g:LanguageClient_serverCommands = {
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsList = "Quickfix"
+if has('nvim') && exists('*nvim_open_win')
+  let g:LanguageClient_hoverPreview = 'Always'
+endif
 " uncomment for debug
 " let g:LanguageClient_loggingLevel = 'DEBUG'
 " let g:LanguageClient_loggingFile = '/tmp/lang_client.log'
