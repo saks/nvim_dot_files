@@ -254,13 +254,13 @@ if has("autocmd")
 
     " remember folding
     " BufWinLeave failed to update view sometimes
-    au BufWinLeave,BufLeave * silent! mkview
+    au BufWinLeave,BufLeave * if @% != '__LanguageClient__' | silent! mkview
 
     " au BufLeave * silent! mkview
     " au BufUnload * silent! mkview
     " au BufUnload * mkview
 
-    au BufWinEnter * silent! loadview
+    au BufWinEnter * if @% != '__LanguageClient__' | silent! loadview
 
     " scss and coffee files
     au BufNewFile,BufRead *.scss setfiletype css
