@@ -252,14 +252,13 @@ if has("autocmd")
     au BufWritePre *.js,*.jsx,*.css,*.json Prettier
     au BufWritePre *.rs,*.py silent! call LanguageClient#textDocument_formatting_sync()
 
-    " remember folding
+    " remember folding and other options
     " BufWinLeave failed to update view sometimes
+    " Ignore '__LanguageClient__' buffer here, since it is used by LanguageClient
+    " as read-only buffer, loading view for it breaks it.
     au BufWinLeave,BufLeave * if @% != '__LanguageClient__' | silent! mkview
 
-    " au BufLeave * silent! mkview
-    " au BufUnload * silent! mkview
-    " au BufUnload * mkview
-
+    " load folding and other options
     au BufWinEnter * if @% != '__LanguageClient__' | silent! loadview
 
     " scss and coffee files
