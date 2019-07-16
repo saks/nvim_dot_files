@@ -47,6 +47,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json']
   \ }
+Plug 'leafgarland/typescript-vim'
 
 " Plug 'python-mode/python-mode', { 'branch': 'develop' }
 " Plug 'vim-syntastic/syntastic', { 'for': 'python' }
@@ -629,6 +630,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'javascript.jsx': ['yarn', 'run', 'flow', 'lsp', '--from', './node_modules/.bin'],
+    \ 'typescript': ['/usr/bin/javascript-typescript-stdio'],
     \ }
 
 " Automatically start language servers.
