@@ -250,7 +250,8 @@ if has("autocmd")
     au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json Prettier
-    au BufWritePre *.rs,*.py silent! call LanguageClient#textDocument_formatting_sync()
+    au BufWritePre *.py silent! call LanguageClient#textDocument_formatting_sync()
+    au BufWritePre *.rs silent! RustFmt
 
     " remember folding and other options
     " BufWinLeave failed to update view sometimes
