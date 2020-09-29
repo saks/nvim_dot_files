@@ -16,7 +16,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'machakann/vim-highlightedyank'
 
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
@@ -409,36 +408,18 @@ noremap <C-space> :nohl <cr>
 "  ---------------------------------------------------------------------------
 let g:javascript_plugin_flow = 1
 
-
-" CtrlP settings:
-if executable('rg')
-  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
-endif
-
-let g:ctrlp_use_caching = 0
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
-
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
 if has('macunix')
-  let g:ctrlp_map = 'ø'
-
+  nnoremap ø :Files<Cr>
   nnoremap <silent> ® :RgCword<CR>
   vnoremap <silent> ® :RgCword<CR>
 
   nnoremap <silent> ‰ :RgaCword<CR>
   vnoremap <silent> ‰ :RgaCword<CR>
 elseif has('unix')
-  let g:ctrlp_map = '<M-o>'
-
+  nnoremap <M-o> :Files<Cr>
   nnoremap <silent> <S-M-r> :RgaCword<CR>
   vnoremap <silent> <S-M-r> :RgaCword<CR>
 
