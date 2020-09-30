@@ -581,6 +581,9 @@ endif
 if has("nvim")
   " EXTERNAL COPY
   vnoremap <C-c> "+y
+
+  " Exit from terminal quicker
+  tnoremap jk <C-\><C-n>
 endif
 
 colorscheme railscasts
@@ -588,6 +591,9 @@ colorscheme railscasts
 "Invisible character colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
+
+" Make terminal cursor visible
+hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
 "  ---------------------------------------------------------------------------
 "  Directories
