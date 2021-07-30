@@ -8,16 +8,16 @@ set nocompatible               " be iMproved
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+if exists('g:vscode')
+  " VSCode extension
+else
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " ordinary neovim
+endif
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
-Plug 'machakann/vim-highlightedyank'
-
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
 Plug 'bling/vim-airline'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
@@ -28,7 +28,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-Plug 'mhinz/vim-signify'
+Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -36,8 +37,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'jimmyhchan/dustjs.vim'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'yosiat/oceanic-next-vim'
 Plug 'pangloss/vim-javascript'
@@ -46,17 +45,27 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json']
   \ }
-Plug 'leafgarland/typescript-vim'
-
-" Plug 'python-mode/python-mode', { 'branch': 'develop' }
-" Plug 'vim-syntastic/syntastic', { 'for': 'python' }
 
 call plug#end()
+
+lua << EOF
+  require('gitsigns').setup {
+    signs = {
+      add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+      change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+      delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    },
+    numhl = false,
+    linehl = false,
+  }
+EOF
 
 "  ---------------------------------------------------------------------------
 "  General
 "  ---------------------------------------------------------------------------
-
+let g:is_mac_os = has("macunix") || $SSH_TTY != ""
 filetype plugin indent on
 let mapleader = ","
 let g:mapleader = ","
@@ -79,6 +88,10 @@ let html_number_lines = 1
 
 " don't show completion preview window
 set completeopt-=preview
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 set termguicolors " true colors in the terminal
 set title
@@ -243,24 +256,22 @@ if has("autocmd")
   augroup saksmlz_autocommands
     autocmd!
 
-    " autocmd FileType lua let b:syntastic_lua_luacheck_args = '--filename ' . expand('<afile>:p', 1)
     " Enable file type detection
     filetype on
 
+    au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}
     au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json Prettier
-    au BufWritePre *.py silent! call LanguageClient#textDocument_formatting_sync()
     au BufWritePre *.rs silent! RustFmt
 
     " remember folding and other options
     " BufWinLeave failed to update view sometimes
-    " Ignore '__LanguageClient__' buffer here, since it is used by LanguageClient
     " as read-only buffer, loading view for it breaks it.
-    au BufWinLeave,BufLeave * if @% != '__LanguageClient__' | silent! mkview
+    au BufWinLeave,BufLeave * silent! mkview
 
     " load folding and other options
-    au BufWinEnter * if @% != '__LanguageClient__' | silent! loadview
+    au BufWinEnter * silent! loadview
 
     " scss and coffee files
     au BufNewFile,BufRead *.scss setfiletype css
@@ -310,6 +321,8 @@ endif
 " RVM status line
 " set statusline+=%{rvm#statusline()}
 
+let g:coc_node_path = "/usr/local/bin/node"
+
 "  ---------------------------------------------------------------------------
 "  Mappings
 "  ---------------------------------------------------------------------------
@@ -321,8 +334,13 @@ inoremap jk <esc>
 vnoremap jk <esc>
 tnoremap jk <C-\><C-N>
 " Stop using <esc>
-inoremap <esc> <nop>
-vnoremap <esc> <nop>
+if exists('g:vscode')
+  " VSCode extension
+else
+  inoremap <esc> <nop>
+  vnoremap <esc> <nop>
+  " ordinary neovim
+endif
 
 " open tag definition (ctags) in new tab instead of new buffer:
 " nnoremap <C-\> :SmartOpenTag<CR>
@@ -408,8 +426,19 @@ noremap <C-space> :nohl <cr>
 "  ---------------------------------------------------------------------------
 let g:javascript_plugin_flow = 1
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
+" CtrlP settings:
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
+endif
+
+let g:ctrlp_use_caching = 0
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
 
 if has('macunix')
   nnoremap ø :Files<Cr>
@@ -439,6 +468,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#tabline#ignore_bufadd_pat = '!|defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 
 if has('macunix')
   nmap ≤ <Plug>AirlineSelectPrevTab
@@ -475,7 +506,7 @@ endif
 let g:airline_extensions = ['branch', 'whitespace', 'tabline', 'languageclient']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
-	let g:airline#extensions#syntastic#enabled = 1
+  let g:airline#extensions#syntastic#enabled = 1
 endif
 
 " Easy commenting
@@ -487,24 +518,6 @@ elseif has('unix')
   vnoremap <M-/> :TComment<CR>
 endif
 
-" unite
-" Автоматический insert mode
-" let g:unite_enable_start_insert = 1
-
-" Отображаем Unite в нижней части экрана
-" let g:unite_split_rule = "botright"
-
-" Отключаем замену статус строки
-" let g:unite_force_overwrite_statusline = 0
-
-" Размер окна Unite
-" let g:unite_winheight = 10
-
-" Красивые стрелочки
-" let g:unite_candidate_icon="▷"
-
-
-
 " NeoSnippet plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -514,11 +527,11 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <expr><TAB>
-\ pumvisible() ? "\<C-n>" :
-\ neosnippet#expandable_or_jumpable() ?
-\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      \ pumvisible() ? "\<C-n>" :
+      \ neosnippet#expandable_or_jumpable() ?
+      \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
 
@@ -599,45 +612,52 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 "  Directories
 "  ---------------------------------------------------------------------------
 
-" Ctags path (brew install ctags)
-let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-
-noremap <Leader>rt :!ctags --languages=ruby -R .<CR><CR>
-noremap <Leader>rs :!bundle exec rspec % --no-color -fp<CR>
-
 "  ---------------------------------------------------------------------------
 "  Misc
 "  ---------------------------------------------------------------------------
 
 let g:javascript_plugin_flow = 1
 
-" Language client:
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'python': ['pyls'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'javascript.jsx': ['yarn', 'run', 'flow', 'lsp', '--from', './node_modules/.bin'],
-    \ 'typescript': ['/usr/bin/javascript-typescript-stdio'],
-    \ }
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsList = "Quickfix"
-if has('nvim') && exists('*nvim_open_win')
-  let g:LanguageClient_hoverPreview = 'Always'
-endif
-" uncomment for debug
-" let g:LanguageClient_loggingLevel = 'DEBUG'
-" let g:LanguageClient_loggingFile = '/tmp/lang_client.log'
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-nnoremap <silent><F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> L :call LanguageClient#explainErrorAtPoint()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Prettier config:
 let g:prettier#autoformat = 0
@@ -669,7 +689,7 @@ let g:prettier#config#bracket_spacing = 'true'
 
 " avoid|always
 " Prettier default: avoid
-let g:prettier#config#arrow_parens = 'avoid'
+" let g:prettier#config#arrow_parens = 'avoid'
 
 " none|es5|all
 " Prettier default: none
