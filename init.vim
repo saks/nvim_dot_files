@@ -261,7 +261,7 @@ if has("autocmd")
 
     au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}
     au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
-    au BufWritePre * :call <SID>StripTrailingWhitespaces()
+    au BufWritePre !*.txt :call <SID>StripTrailingWhitespaces()
     au BufWritePre *.js,*.jsx,*.css,*.json Prettier
     au BufWritePre *.rs silent! RustFmt
 
