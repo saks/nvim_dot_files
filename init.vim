@@ -13,7 +13,6 @@ call plug#begin('~/.config/nvim/plugged')
 if exists('g:vscode')
   " VSCode extension
 else
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " ordinary neovim
 endif
 
@@ -40,8 +39,6 @@ Plug 'junegunn/fzf.vim'
 " Only because nvim-cmp _requires_ snippets
 Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
 Plug 'hrsh7th/vim-vsnip'
-" Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/neosnippet-snippets'
 
 Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
 Plug 'lewis6991/gitsigns.nvim'
@@ -442,11 +439,6 @@ endif
 "  Status Line
 "  ---------------------------------------------------------------------------
 
-" RVM status line
-" set statusline+=%{rvm#statusline()}
-
-" let g:coc_node_path = "/usr/local/bin/node"
-
 "  ---------------------------------------------------------------------------
 "  Mappings
 "  ---------------------------------------------------------------------------
@@ -484,11 +476,6 @@ exe 'inoremap <script> <S-Insert>' paste#paste_cmd['i']
 
 " Text indentation with Alt+Letf/Right and so on
 if has('macunix')
-  " FIXME
-  " nnoremap <M-Left> <<
-  " nnoremap <M-Right> >>
-  " vmap <M-Left> <gv
-  " vmap <M-Right> >gv
   nnoremap ˙ <<
   nnoremap ¬ >>
   vmap ˙ <gv
@@ -498,14 +485,10 @@ if has('macunix')
   " Bubble single lines
   nmap ˚ [e
   nmap ∆ ]e
-  " nmap <M-Up> [e
-  " nmap <M-Down> ]e
 
   " Bubble multiple lines
   vmap ˚ [egv
   vmap ∆ ]egv
-  " vmap <M-Up> [egv
-  " vmap <M-Down> ]egv
 elseif has('unix')
   nnoremap <M-Left> <<
   nnoremap <M-Right> >>
@@ -532,18 +515,6 @@ endif
 
 " Clear highlighting
 noremap <C-space> :nohl <cr>
-
-" Turn off arrow keys (this might not be a good idea for beginners, but it is
-" the best way to ween yourself of arrow keys on to hjkl)
-" http://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/
-" "nnoremap <up> <nop>
-" "nnoremap <down> <nop>
-" "nnoremap <left> <nop>
-" "nnoremap <right> <nop>
-" "inoremap <up> <nop>
-" "inoremap <down> <nop>
-" "inoremap <left> <nop>
-" "inoremap <right> <nop>
 
 "  ---------------------------------------------------------------------------
 "  Plugins
@@ -592,7 +563,6 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
-" let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#nvimlsp#enabled = 1
 let g:airline#extensions#tabline#ignore_bufadd_pat = '!|defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 
@@ -643,38 +613,10 @@ elseif has('unix')
   vnoremap <M-/> :TComment<CR>
 endif
 
-" NeoSnippet plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" NOTE: disabled because of coc.vim note about <tab>
-" imap <expr><TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ neosnippet#expandable_or_jumpable() ?
-"       \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"       \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
-
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
 
 " vim-vsnip Expand
 imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
@@ -715,10 +657,6 @@ if has("gui_running")
   set mouse=a  " Mouse in all modes
   set guifont=Hack\ 13
   set linespace=1
-
-  " EXTERNAL COPY / PASTE
-  " noremap <C-v> "+gP<CR>
-  vnoremap <C-c> "+y
 endif
 
 if has("nvim")
@@ -747,47 +685,6 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 "  ---------------------------------------------------------------------------
 
 let g:javascript_plugin_flow = 1
-
-" Use `[g` and `]g` to navigate diagnostics
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    " call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current line.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Prettier config:
 let g:prettier#autoformat = 0
