@@ -2,6 +2,20 @@
 --
 local cmp = require('cmp')
 
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+lsp_status.config({
+  current_function = false,
+  diagnostics = false,
+  show_filename = false,
+  indicator_errors = 'E',
+  indicator_warnings = 'W',
+  indicator_info = 'i',
+  indicator_hint = '?',
+  indicator_ok = 'Ok',
+  status_symbol = '',
+})
+
 local lspconfig = require('lspconfig')
 cmp.setup({
   snippet = {
@@ -37,6 +51,8 @@ cmp.setup.cmdline(':', {
 
 -- Setup lspconfig.
 local on_attach = function(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -72,6 +88,7 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.tbl_deep_extend('keep', capabilities, require('lsp-status').capabilities)
 local util = require('lspconfig.util')
 
 lspconfig.solargraph.setup {

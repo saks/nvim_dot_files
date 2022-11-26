@@ -29,8 +29,7 @@ Plug 'cespare/vim-toml'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
 Plug 'bling/vim-airline'
-" TODO: figure out how to make it work with vim-airline
-" Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " used for completion for LanguageClient
@@ -438,7 +437,6 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_theme = 'dark'
-let g:airline#extensions#nvimlsp#enabled = 1
 let g:airline#extensions#tabline#ignore_bufadd_pat = '!|defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 
 if has('macunix')
@@ -478,6 +476,19 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
   let g:airline#extensions#syntastic#enabled = 1
 endif
+
+function! LspStatus() abort
+  let status = luaeval('require("lsp-status").status()')
+  return trim(status)
+endfunction
+
+let g:airline#extensions#nvimlsp#enabled = 0
+let g:airline#extensions#lsp#enabled = 0
+
+call airline#parts#define_function('lsp_status', 'LspStatus')
+call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
+
+let g:airline_section_warning = airline#section#create_right(['lsp_status'])
 
 " Easy commenting
 if has('macunix')
