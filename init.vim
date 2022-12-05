@@ -472,13 +472,14 @@ elseif has('unix')
 endif
 
 let g:airline_extensions = ['branch', 'whitespace', 'tabline', 'languageclient']
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 if exists('g:loaded_syntastic_plugin')
   let g:airline#extensions#syntastic#enabled = 1
 endif
 
 function! LspStatus() abort
-  let status = luaeval('require("lsp-status").status()')
+  let status = luaeval('require("lsp-status").status_progress()')
   return trim(status)
 endfunction
 

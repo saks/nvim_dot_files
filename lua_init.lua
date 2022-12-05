@@ -1,8 +1,9 @@
 --  LSP configuration
 --
+local lspconfig = require('lspconfig')
+local lsp_status = require('lsp-status')
 local cmp = require('cmp')
 
-local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 lsp_status.config({
   current_function = false,
@@ -16,7 +17,6 @@ lsp_status.config({
   status_symbol = '',
 })
 
-local lspconfig = require('lspconfig')
 cmp.setup({
   snippet = {
     -- REQUIRED by nvim-cmp. get rid of it once we can
@@ -27,13 +27,15 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    -- XXX: didn't work
+    -- ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     -- TODO: currently snippets from lsp end up getting prioritized -- stop that!
     { name = 'nvim_lsp' },
+    { name = 'vsnip' },
   }, {
     { name = 'path' },
   }),
@@ -60,7 +62,7 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -79,7 +81,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- Get signatures (and _only_ signatures) when in argument lists.
-  require 'lsp_signature'.on_attach({
+  require('lsp_signature').on_attach({
     doc_lines = 0,
     handler_opts = {
       border = 'none'
@@ -89,12 +91,11 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local capabilities = vim.tbl_deep_extend('keep', capabilities, require('lsp-status').capabilities)
-local util = require('lspconfig.util')
 
 lspconfig.solargraph.setup {
   init_options = { formatting = true },
   filetypes = { 'ruby' },
-  root_dir = util.root_pattern('Gemfile', '.git'),
+  root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git'),
 }
 
 lspconfig.rust_analyzer.setup {
@@ -127,11 +128,11 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl = 'GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl = 'GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl = 'GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl = 'GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl = 'GitSignsChangeLn'},
   },
   numhl = false,
   linehl = false,
