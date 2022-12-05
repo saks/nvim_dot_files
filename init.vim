@@ -43,7 +43,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'css', 'json']
+  \ 'for': ['javascript', 'css', 'json', 'ruby']
   \ }
 
 call plug#end()
@@ -260,9 +260,9 @@ if has("autocmd")
     filetype on
 
     au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}
-    au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
+    " au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre * :call <SID>StripTrailingWhitespaces()
-    au BufWritePre *.js,*.jsx,*.css,*.json Prettier
+    au BufWritePre *.js,*.jsx,*.css,*.json PrettierAsync
     au BufWritePre *.rs silent! RustFmt
 
     " remember folding and other options
@@ -284,11 +284,10 @@ if has("autocmd")
     " Customisations based on house-style (arbitrary)
     au FileType html,css,ruby setlocal ts=2 sts=2 sw=2 expandtab
     au FileType c setlocal ts=4 sts=4 sw=4 expandtab
-    au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
     au FileType lua setlocal tw=79 cc=80
     au FileType python setlocal ts=4 sts=4 sw=4 tw=79 cc=80 expandtab
     au FileType rust setlocal tw=99 cc=100
-    au FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 
     " Go
     au FileType go nmap <Leader>dt <Plug>(go-def-tab)
@@ -321,7 +320,7 @@ endif
 " RVM status line
 " set statusline+=%{rvm#statusline()}
 
-let g:coc_node_path = "/usr/local/bin/node"
+" let g:coc_node_path = "/usr/local/bin/node"
 
 "  ---------------------------------------------------------------------------
 "  Mappings
@@ -661,7 +660,6 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Prettier config:
-let g:prettier#autoformat = 0
 let g:prettier#quickfix_enabled = 1
 
 " max line length that prettier will wrap on
@@ -698,4 +696,7 @@ let g:prettier#config#trailing_comma = 'es5'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
-let g:prettier#config#parser = 'flow'
+" let g:prettier#config#parser = 'ruby'
+" let g:prettier#exec_cmd_async = 0
+" let g:prettier#autoformat_require_pragma = 0
+" let g:prettier#autoformat = 1
