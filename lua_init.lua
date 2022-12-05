@@ -51,6 +51,21 @@ cmp.setup.cmdline(':', {
   })
 })
 
+
+local xfn = function() 
+  local row = vim.api.nvim_win_get_height(0) - 3
+  local col = vim.api.nvim_win_get_width(0) - 40
+  local config = { 
+    relative = 'win', 
+    row = row, 
+    anchor = 'SW', 
+    col = col, 
+    width = 30, 
+    height = 1,
+  }
+  vim.api.nvim_open_win(0, true, config)
+end
+
 -- Setup lspconfig.
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
