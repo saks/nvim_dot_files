@@ -121,13 +121,20 @@ lspconfig.rust_analyzer.setup {
   },
   settings = {
     ['rust-analyzer'] = {
+      imports = {
+        granularity = { group = 'module' },
+        prefix = 'self',
+      },
       cargo = {
         allFeatures = true,
+        buildScripts = { enable = true },
+      },
+      procMacro = { enable = true },
+      cargo = {
+        buildScripts = { enable = true },
       },
       completion = {
-        postfix = {
-          enable = false,
-        },
+        postfix = { enable = false },
       },
     },
   },
