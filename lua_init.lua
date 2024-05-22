@@ -1,3 +1,26 @@
+-- better key mappings for comments
+do
+  local binding
+  if vim.fn.has("macunix") == 1 then
+    binding = '÷'
+  elseif vim.fn.has("unix") == 1 then
+    binding = '<M-/>'
+  end
+
+  local operator_rhs = function()
+    return require('vim._comment').operator()
+  end
+
+  vim.keymap.set({ 'n', 'x' }, binding, operator_rhs, { expr = true, desc = 'Toggle comment' })
+
+  local line_rhs = function()
+    return require('vim._comment').operator() .. '_'
+  end
+
+  vim.keymap.set('n', binding, line_rhs, { expr = true, desc = 'Toggle comment line' })
+end
+
+
 --  LSP configuration
 --
 local lspconfig = require('lspconfig')

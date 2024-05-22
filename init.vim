@@ -41,7 +41,6 @@ Plug 'hrsh7th/vim-vsnip'
 
 Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -257,7 +256,7 @@ if has("autocmd")
     au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}
     au BufWritePost *.rb silent! :exe '!rubocop --rails --fix-layout --auto-correct --format=q %' | e!
     au BufWritePre !*.txt :call <SID>StripTrailingWhitespaces()
-    au BufWritePre *.js,*.jsx,*.css,*.json Prettier
+    " au BufWritePre *.js,*.jsx,*.css,*.json Prettier
     au BufWritePre *.rs silent! RustFmt
 
     " remember folding and other options
@@ -490,15 +489,6 @@ call airline#parts#define_function('lsp_status', 'LspStatus')
 call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
 
 let g:airline_section_warning = airline#section#create_right(['lsp_status'])
-
-" Easy commenting
-if has('macunix')
-  nnoremap ÷ :TComment<CR>
-  vnoremap ÷ :TComment<CR>
-elseif has('unix')
-  nnoremap <M-/> :TComment<CR>
-  vnoremap <M-/> :TComment<CR>
-endif
 
 " For conceal markers.
 if has('conceal')
