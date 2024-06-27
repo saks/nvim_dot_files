@@ -148,16 +148,15 @@ lspconfig.rust_analyzer.setup {
         granularity = { group = 'module' },
         prefix = 'self',
       },
-      cargo = {
-        allFeatures = true,
-        buildScripts = { enable = true },
-      },
       procMacro = { enable = true },
       cargo = {
+        features = "all",
+        allFeatures = true,
         buildScripts = { enable = true },
       },
       completion = {
         postfix = { enable = false },
+        limit = 20,
       },
     },
   },
