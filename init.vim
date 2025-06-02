@@ -5,6 +5,9 @@ set nocompatible               " be iMproved
 "  Plugins
 "  ---------------------------------------------------------------------------
 
+" Disable mapping of Ctrl+S introduced as part of nvim 0.11. It conflicts with 'tpope/vim-surround'
+iunmap <C-s>
+
 let mapleader = ","
 let g:mapleader = ","
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
