@@ -42,6 +42,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
 Plug 'hrsh7th/vim-vsnip'
 
+Plug 'github/copilot.vim'
+
 Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-endwise'
@@ -319,6 +321,10 @@ endif
 "  Mappings
 "  ---------------------------------------------------------------------------
 "
+
+" copilot: make it work with cmp
+let g:copilot_no_tab_map = v:true
+imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
 
 " saksmlz specific:
 " Use jk intead of <esc>

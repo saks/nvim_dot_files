@@ -47,6 +47,9 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
+    ['<C-g>'] = cmp.mapping(function(fallback)
+      vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+    end),
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     -- XXX: didn't work
@@ -55,6 +58,7 @@ cmp.setup({
     ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
+    { name = 'copilot' },
     -- TODO: currently snippets from lsp end up getting prioritized -- stop that!
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
@@ -63,7 +67,7 @@ cmp.setup({
     { name = 'buffer' },
   }),
   experimental = {
-    ghost_text = true,
+    ghost_text = false -- this feature conflict with copilot.vim's preview.
   },
 })
 
