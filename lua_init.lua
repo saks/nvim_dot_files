@@ -23,7 +23,6 @@ end
 
 --  LSP configuration
 --
-local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
 local cmp = require('cmp')
 
@@ -131,13 +130,15 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local capabilities = vim.tbl_deep_extend('keep', capabilities, require('lsp-status').capabilities)
 
-lspconfig.solargraph.setup {
+vim.lsp.config('solargraph', {
   init_options = { formatting = true },
   filetypes = { 'ruby' },
   root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git'),
-}
+})
 
-lspconfig.rust_analyzer.setup {
+vim.lsp.config('bashls', {})
+
+vim.lsp.config('rust_analyzer', {
   on_attach = on_attach,
   flags = {
     debounce_text_changes = 150,
@@ -161,7 +162,9 @@ lspconfig.rust_analyzer.setup {
     },
   },
   capabilities = capabilities,
-}
+})
+
+vim.lsp.enable({ 'rust_analyzer', 'solargraph', 'bashls' })
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {
