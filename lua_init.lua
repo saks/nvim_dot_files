@@ -117,10 +117,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>', opts)
 
   -- Get signatures (and _only_ signatures) when in argument lists.
   require('lsp_signature').on_attach({
@@ -170,13 +170,11 @@ vim.lsp.config('rust_analyzer', {
 
 vim.lsp.enable({ 'rust_analyzer', 'solargraph', 'bashls' })
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
   virtual_text = true,
   signs = true,
   update_in_insert = true,
-}
-)
+})
 
 require('gitsigns').setup {
   signs = {
