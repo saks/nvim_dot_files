@@ -1,3 +1,6 @@
+lua package.path = os.getenv('HOME') .. '/.config/nvim/?.lua;' .. package.path
+lua require('lua_init')
+
 " set re=1
 set nocompatible               " be iMproved
 
@@ -20,42 +23,42 @@ else
 endif
 
 " Semantic language support
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
-Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
-Plug 'hrsh7th/cmp-path', {'branch': 'main'}
-Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
-Plug 'ray-x/lsp_signature.nvim'
-
-Plug 'rust-lang/rust.vim'
-Plug 'cespare/vim-toml'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
-Plug 'bling/vim-airline'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'godlygeek/tabular'
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
+"Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
+"Plug 'hrsh7th/cmp-path', {'branch': 'main'}
+"Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
+"Plug 'ray-x/lsp_signature.nvim'
+"
+"Plug 'rust-lang/rust.vim'
+"Plug 'cespare/vim-toml'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
+"Plug 'bling/vim-airline'
+"Plug 'nvim-lua/lsp-status.nvim'
+"Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
+"Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " used for completion for LanguageClient
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf.vim'
 
 " Only because nvim-cmp _requires_ snippets
-Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
-Plug 'hrsh7th/vim-vsnip'
+"Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
+"Plug 'hrsh7th/vim-vsnip'
 
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
 
-Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'yosiat/oceanic-next-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+"Plug 'nvim-lua/plenary.nvim' " dependency of gitsigns
+"Plug 'lewis6991/gitsigns.nvim'
+"Plug 'tpope/vim-endwise'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-repeat'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-unimpaired'
+"Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'editorconfig/editorconfig-vim'
+"Plug 'yosiat/oceanic-next-vim'
+"Plug 'pangloss/vim-javascript'
+"Plug 'mxw/vim-jsx'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json']
@@ -611,6 +614,3 @@ let g:prettier#config#trailing_comma = 'es5'
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
 let g:prettier#config#parser = 'flow'
-
-lua package.path = os.getenv('HOME') .. '/.config/nvim/?.lua;' .. package.path
-lua require('lua_init')

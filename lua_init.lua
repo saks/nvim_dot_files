@@ -1,3 +1,43 @@
+-- plugins
+local gh = function(x) return 'https://github.com/' .. x end
+
+vim.pack.add({
+  gh('neovim/nvim-lspconfig'),
+  gh('ray-x/lsp_signature.nvim'),
+  gh('nvim-lua/lsp-status.nvim'),
+  gh('hrsh7th/cmp-nvim-lsp'),
+  gh('github/copilot.vim'),
+  gh('hrsh7th/cmp-buffer'),
+  gh('hrsh7th/cmp-path'),
+  gh('hrsh7th/nvim-cmp'),
+
+  -- Only because nvim-cmp _requires_ snippets
+  gh('hrsh7th/cmp-vsnip'),
+  gh('hrsh7th/vim-vsnip'),
+
+  gh('rust-lang/rust.vim'),
+  gh('cespare/vim-toml'),
+  gh('ctrlpvim/ctrlp.vim'),
+  gh('tpope/vim-rails'),
+  gh('bling/vim-airline'),
+  gh('ekalinin/Dockerfile.vim'),
+  gh('godlygeek/tabular'),
+  gh('junegunn/fzf.vim'),
+
+  gh('nvim-lua/plenary.nvim'), -- dependency of gitsigns
+  gh('lewis6991/gitsigns.nvim'),
+  gh('tpope/vim-endwise'),
+  gh('tpope/vim-fugitive'),
+  gh('tpope/vim-repeat'),
+  gh('tpope/vim-surround'),
+  gh('tpope/vim-unimpaired'),
+  gh('AndrewRadev/splitjoin.vim'),
+  gh('editorconfig/editorconfig-vim'),
+  gh('yosiat/oceanic-next-vim'),
+  gh('pangloss/vim-javascript'),
+  gh('mxw/vim-jsx'),
+})
+
 -- better key mappings for comments
 do
   local binding
