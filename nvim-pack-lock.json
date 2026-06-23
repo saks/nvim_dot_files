@@ -33,19 +33,23 @@
       "src": "https://github.com/editorconfig/editorconfig-vim"
     },
     "fzf.vim": {
-      "rev": "b9624aa012ddcbae9e79964bfd30cc1fbe3cf263",
+      "rev": "d2a59a992a2455f609c0fde2ebd84427ea8f919a",
       "src": "https://github.com/junegunn/fzf.vim"
     },
     "gitsigns.nvim": {
-      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
+      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "llama.vim": {
+      "rev": "77db2afe488a7f700a2027527f17ab771988e358",
+      "src": "https://github.com/ggml-org/llama.vim"
     },
     "lsp-status.nvim": {
       "rev": "54f48eb5017632d81d0fd40112065f1d062d0629",
       "src": "https://github.com/nvim-lua/lsp-status.nvim"
     },
     "lsp_signature.nvim": {
-      "rev": "a65b38f260cc3470a05b4afb84c8d868617d476d",
+      "rev": "b7ace9ddb1640ce266012a45a672dfdaedfa5ec6",
       "src": "https://github.com/ray-x/lsp_signature.nvim"
     },
     "nvim-cmp": {
@@ -53,8 +57,12 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-lspconfig": {
-      "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
+      "rev": "bfcc0171a43f22afa61d927ffe9fcb6cb85dc99e",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "oceanic-next-vim": {
       "rev": "51c42b20315fb393a836abd0f2faea2b8a3a4f24",
@@ -69,7 +77,7 @@
       "src": "https://github.com/rust-lang/rust.vim"
     },
     "splitjoin.vim": {
-      "rev": "8c4c87e72d20d8d5eee8b29c320eb61767578841",
+      "rev": "b26971a7fdc7ca645b766459e3ed7949300c404f",
       "src": "https://github.com/AndrewRadev/splitjoin.vim"
     },
     "tabular": {
@@ -77,7 +85,7 @@
       "src": "https://github.com/godlygeek/tabular"
     },
     "vim-airline": {
-      "rev": "512456e425409ec58627bd839fbb85d449d8cbc1",
+      "rev": "9e0beefd6e28c92d876559f07d8595f454c08cb7",
       "src": "https://github.com/bling/vim-airline"
     },
     "vim-endwise": {
