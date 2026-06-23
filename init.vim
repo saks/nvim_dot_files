@@ -556,7 +556,7 @@ if has("nvim")
   tnoremap jk <C-\><C-n>
 endif
 
-colorscheme railscasts
+colorscheme railscasts3
 
 "Invisible character colors
 highlight NonText guifg=#4a4a59
