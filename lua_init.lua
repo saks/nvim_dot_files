@@ -1,3 +1,8 @@
+-- llama completion config (has to be done before plugin loads):
+vim.g.llama_config = { 
+  show_info = 0,
+}
+
 -- plugins
 local gh = function(x) return 'https://github.com/' .. x end
 
@@ -35,6 +40,7 @@ vim.pack.add({
   gh('yosiat/oceanic-next-vim'),
   gh('pangloss/vim-javascript'),
   gh('mxw/vim-jsx'),
+  gh('ggml-org/llama.vim'),
 })
 
 -- better key mappings for comments
