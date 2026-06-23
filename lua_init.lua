@@ -7,6 +7,7 @@ vim.g.llama_config = {
 local gh = function(x) return 'https://github.com/' .. x end
 
 vim.pack.add({
+  gh('nvim-treesitter/nvim-treesitter'),
   gh('neovim/nvim-lspconfig'),
   gh('ray-x/lsp_signature.nvim'),
   gh('nvim-lua/lsp-status.nvim'),
@@ -133,6 +134,24 @@ local xfn = function()
   }
   vim.api.nvim_open_win(0, true, config)
 end
+
+-- Subtle floating window style
+local function setup_floats()
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1F252B" })     -- darker than main background
+  vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#777777", bg = "#1F252B" })
+  vim.api.nvim_set_hl(0, "FloatTitle",  { fg = "#FFC66D", bg = "#1F252B", bold = true })
+end
+
+setup_floats()
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "railscasts3",
+  callback = setup_floats,
+})
+
+-- Global floating window style (affects hover, signature, diagnostics, etc.)
+vim.o.winborder = "rounded"        -- This is the key for rounded corners
+vim.o.winblend = 0                 -- 0 = opaque, 10-20 for subtle transparency if you want
 
 -- Setup lspconfig.
 local on_attach = function(client, bufnr)
