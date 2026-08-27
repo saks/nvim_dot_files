@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "Dockerfile.vim": {
-      "rev": "2a31e6bcea5977209c05c728c4253d82fd873c82",
-      "src": "https://github.com/ekalinin/Dockerfile.vim"
-    },
     "cmp-buffer": {
       "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
       "src": "https://github.com/hrsh7th/cmp-buffer"
@@ -20,17 +16,9 @@
       "rev": "989a8a73c44e926199bfd05fa7a516d51f2d2752",
       "src": "https://github.com/hrsh7th/cmp-vsnip"
     },
-    "copilot.vim": {
-      "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
-      "src": "https://github.com/github/copilot.vim"
-    },
-    "ctrlp.vim": {
-      "rev": "0065942ef13ce28293e2b26cb622d035da050b44",
-      "src": "https://github.com/ctrlpvim/ctrlp.vim"
-    },
-    "editorconfig-vim": {
-      "rev": "c0227885a06b155d5aa5465e08b9800e8c939f70",
-      "src": "https://github.com/editorconfig/editorconfig-vim"
+    "fzf": {
+      "rev": "f7ae439ff5b2f8298716d39783a546db793b0625",
+      "src": "https://github.com/junegunn/fzf"
     },
     "fzf.vim": {
       "rev": "d2a59a992a2455f609c0fde2ebd84427ea8f919a",
@@ -43,10 +31,6 @@
     "llama.vim": {
       "rev": "239d8d1f76677262ca2595e43647a8649b543617",
       "src": "https://github.com/ggml-org/llama.vim"
-    },
-    "lsp-status.nvim": {
-      "rev": "54f48eb5017632d81d0fd40112065f1d062d0629",
-      "src": "https://github.com/nvim-lua/lsp-status.nvim"
     },
     "lsp_signature.nvim": {
       "rev": "b7ace9ddb1640ce266012a45a672dfdaedfa5ec6",
@@ -64,17 +48,9 @@
       "rev": "8b98b4470eb326f1c7b50dae79f8c963568e5720",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
-    "oceanic-next-vim": {
-      "rev": "51c42b20315fb393a836abd0f2faea2b8a3a4f24",
-      "src": "https://github.com/yosiat/oceanic-next-vim"
-    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
-    },
-    "rust.vim": {
-      "rev": "889b9a7515db477f4cb6808bef1769e53493c578",
-      "src": "https://github.com/rust-lang/rust.vim"
     },
     "splitjoin.vim": {
       "rev": "b26971a7fdc7ca645b766459e3ed7949300c404f",
@@ -96,14 +72,6 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-javascript": {
-      "rev": "b26c9edb3563e02f5c0b20580f7cf9743e95b157",
-      "src": "https://github.com/pangloss/vim-javascript"
-    },
-    "vim-jsx": {
-      "rev": "8879e0d9c5ba0e04ecbede1c89f63b7a0efa24af",
-      "src": "https://github.com/mxw/vim-jsx"
-    },
     "vim-rails": {
       "rev": "b0a5c76f86ea214ade36ab0b811e730c3f0add67",
       "src": "https://github.com/tpope/vim-rails"
@@ -115,10 +83,6 @@
     "vim-surround": {
       "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
       "src": "https://github.com/tpope/vim-surround"
-    },
-    "vim-toml": {
-      "rev": "da051b7c23bad3c52d18886203c594739780ec09",
-      "src": "https://github.com/cespare/vim-toml"
     },
     "vim-unimpaired": {
       "rev": "db65482581a28e4ccf355be297f1864a4e66985c",

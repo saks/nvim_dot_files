@@ -22,7 +22,7 @@ local colors = {
 
 vim.cmd.highlight("clear")
 vim.o.background = "dark"
-vim.g.colors_name = "railscasts"
+vim.g.colors_name = "railscasts3"
 
 local function hl(group, opts)
   vim.api.nvim_set_hl(0, group, opts)
@@ -107,13 +107,17 @@ hl("DiagnosticWarn",          { fg = "#E0E000" })
 hl("DiagnosticInfo",          { fg = "#6D9CBE" })
 hl("DiagnosticHint",          { fg = "#A5C261" })
 
--- Floating windows
-hl("NormalFloat",             { fg = colors.fg, bg = colors.bg })
-hl("FloatBorder",             { fg = "#777777", bg = colors.bg })
+-- Floating windows (slightly darker than Normal so hover/signature stand out)
+hl("NormalFloat",             { fg = colors.fg, bg = "#1F252B" })
+hl("FloatBorder",             { fg = "#777777", bg = "#1F252B" })
+hl("FloatTitle",              { fg = colors.func, bg = "#1F252B", bold = true })
+
+-- Listchars / terminal
+hl("NonText",                 { fg = "#4a4a59" })
+hl("SpecialKey",              { fg = "#4a4a59" })
+hl("TermCursorNC",            { fg = "#fdf6e3", bg = "#93a1a1" })
 
 -- Diff
 hl("DiffAdd",                 { fg = colors.fg, bg = "#144212" })
 hl("DiffDelete",              { fg = colors.fg, bg = "#660000" })
-hl("DiffChange",              { bg = "#2B2B2B" })  -- adjust if needed
-
-print("railscasts colorscheme loaded successfully!")
+hl("DiffChange",              { bg = "#2B2B2B" })
