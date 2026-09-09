@@ -17,23 +17,23 @@
       "src": "https://github.com/hrsh7th/cmp-vsnip"
     },
     "fzf": {
-      "rev": "f7ae439ff5b2f8298716d39783a546db793b0625",
+      "rev": "63e82a9e3dd52cc67a46db842b8a29e0c1f83229",
       "src": "https://github.com/junegunn/fzf"
     },
     "fzf.vim": {
-      "rev": "d2a59a992a2455f609c0fde2ebd84427ea8f919a",
+      "rev": "8a0068127ac9ee23d71dab2944ce995726bef462",
       "src": "https://github.com/junegunn/fzf.vim"
     },
     "gitsigns.nvim": {
-      "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
+      "rev": "f2421c550618d257048afa650413d9e542ddbe67",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "llama.vim": {
-      "rev": "239d8d1f76677262ca2595e43647a8649b543617",
+      "rev": "26ae515efc7d1a9b5cafe2f8a9ab4c5bbcab1fc1",
       "src": "https://github.com/ggml-org/llama.vim"
     },
     "lsp_signature.nvim": {
-      "rev": "b7ace9ddb1640ce266012a45a672dfdaedfa5ec6",
+      "rev": "1997451c4c9956a1380d8bea4b0e33ebdf07976e",
       "src": "https://github.com/ray-x/lsp_signature.nvim"
     },
     "nvim-cmp": {
@@ -41,11 +41,11 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-lspconfig": {
-      "rev": "af9adce488c75ca0a81017945c2b7fa7b461bc23",
+      "rev": "84b6b6c3f13cb34a6c8a0354b0da4c67d8ccf867",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "8b98b4470eb326f1c7b50dae79f8c963568e5720",
+      "rev": "5cb0114e6242625db56dd6440e945ed1ece10bc7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary.nvim": {
@@ -61,7 +61,7 @@
       "src": "https://github.com/godlygeek/tabular"
     },
     "vim-airline": {
-      "rev": "a2fefe599378b4a493287d10501f51e224753690",
+      "rev": "ae24f4aca06731d5d7224df1fc5415975331b214",
       "src": "https://github.com/bling/vim-airline"
     },
     "vim-endwise": {
