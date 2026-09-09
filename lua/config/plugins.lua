@@ -17,6 +17,18 @@ vim.g.fzf_action = {
   ['ctrl-v'] = 'vsplit',
 }
 
+-- :Files lists via rg. Ctrl-G drops gitignored files; Ctrl-A includes them.
+local rg_files = "rg --files --hidden --glob '!.git'"
+local rg_files_all = "rg --files --hidden --no-ignore --glob '!.git'"
+vim.env.FZF_DEFAULT_COMMAND = rg_files
+vim.g.fzf_vim = {
+  files_options = {
+    '--header', 'CTRL-G: hide gitignored  CTRL-A: all files',
+    '--bind', 'ctrl-g:reload(' .. rg_files .. ')',
+    '--bind', 'ctrl-a:reload(' .. rg_files_all .. ')',
+  },
+}
+
 local function gh(repo)
   return 'https://github.com/' .. repo
 end
