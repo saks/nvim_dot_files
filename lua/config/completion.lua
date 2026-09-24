@@ -24,9 +24,15 @@ cmp.setup({
   },
 })
 
+-- path is only files (`:e ./`). cmdline is commands and their arguments
+-- (`:colorscheme`, `:set`). Hyphenated names (new-railscasts) need the
+-- symbol matcher or they never appear once you type past the hyphen.
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' },
+  }, {
+    { name = 'cmdline' },
   }),
+  matching = { disallow_symbol_nonprefix_matching = false },
 })

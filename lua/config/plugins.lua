@@ -40,6 +40,7 @@ vim.pack.add({
   gh('hrsh7th/cmp-nvim-lsp'),
   gh('hrsh7th/cmp-buffer'),
   gh('hrsh7th/cmp-path'),
+  gh('hrsh7th/cmp-cmdline'),
   gh('hrsh7th/nvim-cmp'),
   -- nvim-cmp still requires a snippet expander
   gh('hrsh7th/cmp-vsnip'),
